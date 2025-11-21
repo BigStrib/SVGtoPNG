@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG to PNG Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="container">
+        <!-- Main Content -->
+        <div class="main-layout">
+            <!-- Left Panel - Controls -->
+            <div class="left-panel">
+                <!-- Input Section -->
+                <div class="card input-section">
+                    <div class="card-header">
+                        <i class="fas fa-code"></i>
+                        <h3>SVG Code</h3>
+                    </div>
+                    <div class="card-body">
+                        <textarea 
+                            id="svg-input" 
+                            rows="6" 
+                            placeholder="Paste your <svg>...</svg> code here..."
+                            spellcheck="false"
+                        ></textarea>
+                        <div class="button-group">
+                            <button onclick="displaySVG()" class="btn btn-primary">
+                                <i class="fas fa-play"></i>
+                                Render
+                            </button>
+                            <button onclick="clearAll()" class="btn btn-secondary">
+                                <i class="fas fa-trash"></i>
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls Section -->
+                <div class="card controls-section">
+                    <div class="card-header">
+                        <i class="fas fa-sliders"></i>
+                        <h3>Settings</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="dimension-container">
+                            <div class="dimension-group">
+                                <div class="input-group">
+                                    <label for="width-input">
+                                        <i class="fas fa-arrows-left-right"></i>
+                                        Width
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <input 
+                                            type="number" 
+                                            id="width-input" 
+                                            value="300" 
+                                            min="1" 
+                                            max="5000"
+                                            oninput="resizeSVG('width')"
+                                        >
+                                        <span class="unit">px</span>
+                                    </div>
+                                </div>
+                                <div class="constraint-button">
+                                    <button 
+                                        class="btn-constraint" 
+                                        id="constraint-btn" 
+                                        onclick="toggleConstraint()"
+                                        title="Lock aspect ratio"
+                                    >
+                                        <i class="fas fa-link-slash"></i>
+                                    </button>
+                                </div>
+                                <div class="input-group">
+                                    <label for="height-input">
+                                        <i class="fas fa-arrows-up-down"></i>
+                                        Height
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <input 
+                                            type="number" 
+                                            id="height-input" 
+                                            value="300" 
+                                            min="1" 
+                                            max="5000"
+                                            oninput="resizeSVG('height')"
+                                        >
+                                        <span class="unit">px</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quality-group">
+                            <label for="scale-input">
+                                <i class="fas fa-expand"></i>
+                                Quality Scale
+                            </label>
+                            <div class="scale-control">
+                                <input 
+                                    type="range" 
+                                    id="scale-input" 
+                                    min="1" 
+                                    max="4" 
+                                    value="2" 
+                                    step="1"
+                                >
+                                <span id="scale-value">2x</span>
+                            </div>
+                        </div>
+
+                        <button onclick="downloadPNG()" id="download-btn" class="btn btn-success" disabled>
+                            <i class="fas fa-download"></i>
+                            Download PNG
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Preview (Always Visible) -->
+            <div class="right-panel">
+                <div class="card display-section">
+                    <div class="card-header">
+                        <i class="fas fa-eye"></i>
+                        <h3>Preview</h3>
+                        <span class="badge" id="status-badge">No SVG loaded</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="svg-output-container" class="svg-preview">
+                            <div class="empty-state">
+                                <i class="fas fa-image"></i>
+                                <p>Your SVG will appear here</p>
+                            </div>
+                        </div>
+                        <canvas id="conversion-canvas" style="display: none;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
