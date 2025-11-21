@@ -92,8 +92,8 @@ body {
     position: fixed;
     top: 15px;
     right: 15px;
-    width: 46px;
-    height: 46px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: var(--accent-gradient);
     border: none;
@@ -874,4 +874,5 @@ textarea::placeholder {
         max-width: none;
         top: 70px;
     }
+
 }
